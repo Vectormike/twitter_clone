@@ -1,5 +1,6 @@
 "use strict";
 const User = use("App/Models/User");
+const { validateAll } = use("Validator");
 
 class UserController {
   async showCreateUser({ view }) {
@@ -19,11 +20,11 @@ class UserController {
       ]);
       const rules = {
         name: "required|max:255",
-        username: "required|max:255",
+        username: "required|max:255|unique:users",
         email: "required|email|max:255|unique:users",
-        location: "required|email|max:255|unique:users",
-        url: "required|email|max:255|unique:users",
-        bio: "required|email|max:255|unique:users",
+        location: "required|max:255",
+        url: "required|max:255",
+        bio: "required|max:255",
         password: "required|min:6|max:30",
       };
 
@@ -42,9 +43,11 @@ class UserController {
         status: "Registered successfully",
         data: user,
       });
+      return response.redirect("/login");
     } catch (error) {
       console.log(error);
-      response.status(500).json({
+      session.flash({ error: "Invalid Login Credentials" });
+      return response.status(500).json({
         message: "Account not created",
         error,
       });
@@ -77,6 +80,11 @@ class UserController {
       session.flash({ error: "Invalid Login Credentials" });
       return response.redirect("back");
     }
+  }
+
+  async logout({ auth, response }) {
+    await auth.logout();
+    response.redirect("/login");
   }
 }
 
