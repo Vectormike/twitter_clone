@@ -14,6 +14,7 @@ class UsersSchema extends Schema {
       table.string("url").notNullable();
       table.string("bio").notNullable();
       table.string("password").notNullable();
+      table.integer("followers");
       table.timestamps();
     });
   }

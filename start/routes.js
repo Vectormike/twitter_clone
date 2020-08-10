@@ -16,15 +16,18 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use("Route");
 
-Route.get("/", "HomeController.index").as("welcomePage");
+Route.get("/", "HomeController.index");
 
 Route.get("/register", "UserController.showCreateUser");
-Route.post("/register", "UserController.createUser").as("register.index");
+Route.post("/register", "UserController.createUser");
 
 Route.get("/login", "UserController.showLoginUser");
 Route.post("/login", "UserController.loginUser");
+Route.get("/logout", "UserController.logout").as("logout");
 
-Route.group(() => {
-  Route.get("/profile", "AccountController.showProfile");
-  // Route.post("/", "UserController.createUser");
-}).prefix("/account");
+Route.get("/account/profile", "AccountController.showProfile");
+
+// Route.group(() => {
+//   Route.get("/profile", "AccountController.showProfile");
+//   // Route.post("/", "UserController.createUser");
+// }).prefix("/account/");

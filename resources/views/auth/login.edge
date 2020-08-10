@@ -8,7 +8,8 @@
 				<div class="card">
 					<div class="card-header">Login</div>
 					<div class="card-body">
-            <form method="POST" action="{{ route('/account/profile') }}">
+						@include('layout.alerts')
+            <form method="POST" action="{{ route('/login') }}">
               {{ csrfField() }}
               <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="email">

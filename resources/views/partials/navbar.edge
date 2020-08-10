@@ -1,11 +1,12 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-  <a class="navbar-brand" href="{{ route('welcomePage') }}"><i class="fa fa-cube"></i> Tweeter</a>
+  <a class="navbar-brand" href="{{ route('/') }}"><i class="fa fa-cube"></i> Tweeter</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarCollapse">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
+         <a class="nav-link {{ url == route('contact.show') ? 'active' : '' }}" href="{{ route('contact.show') }}">CONTACT</a>
       </li>
       <li class="nav-item">
       </li>
@@ -23,7 +24,7 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <a class="dropdown-item" href="{{ route('user.account') }}"><i class="fa fa-btn fa-user"></i> My Account</a>
-            <a class="dropdown-item" href="{{ route('logout') }}"><i class="fa fa-btn fa-sign-out"></i> Logout</a>
+            <a class="dropdown-item" href="{{ route('/logout') }}"><i class="fa fa-btn fa-sign-out"></i> Logout</a>
           </div>
         </li>
       @else

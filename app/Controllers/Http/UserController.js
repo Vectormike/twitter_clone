@@ -60,31 +60,40 @@ class UserController {
 
   async loginUser({ request, session, auth, response }) {
     try {
-      const userInfo = request.only(["email", "password"]);
+      const userInfo = request.all();
 
       const rules = {
         email: "required",
         password: "required",
       };
-
       const validation = await validateAll(userInfo, rules);
-
       if (validation.fails()) {
         session.withErrors(validation.messages()).flashExcept(["password"]);
 
         return response.redirect("back");
       }
-      await auth.attempt(email, password);
-      return response.redirect("home");
+      await auth.attempt(userInfo);
+
+      response.status(200).json({
+        status: "Login successfully",
+      });
+      return response.redirect("/account/profile");
     } catch (error) {
+      console.log(error);
       session.flash({ error: "Invalid Login Credentials" });
-      return response.redirect("back");
+      // response.status(500).json({
+      //   message: "Invalid Login Credentials",
+      //   error,
+      // });
+      return response.redirect("/");
     }
   }
 
   async logout({ auth, response }) {
+    console.log("Hi");
     await auth.logout();
-    response.redirect("/login");
+
+    response.redirect("/");
   }
 }
 
